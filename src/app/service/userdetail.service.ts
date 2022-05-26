@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import{ Observable, BehaviorSubject, of, Subject} from 'rxjs';
 import { HttpClient} from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { HttpClient} from '@angular/common/http';
 export class UserdetailService {
   public userlogo = new Subject<String>();
   public userdetail : any = [];
-  public urlpath = "http://localhost:3200";
+  public urlpath = environment.host;
 
   private profile = new BehaviorSubject(this.userdetail);
   profileData = this.profile.asObservable();
