@@ -1,0 +1,16 @@
+.center-align{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    width: 25%;
+    padding: 30px;
+    margin: 5% 0;
+    border : 2px solid green;
+}
+.forgetpwd{
+   float: right;
+   cursor: pointer;
+   text-decoration: underline;
+}

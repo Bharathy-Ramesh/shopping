@@ -1,0 +1,48 @@
+.card{
+    display:flex;
+    flex-direction: row;
+    margin:5% 20%;
+}
+img{
+    width: 50%;
+    height: 50%;
+    margin: 20% 30%;
+}
+.imagedet{
+    width: 50%;
+}
+
+.details{
+    width:50%;
+    padding: 10% 3%;
+}
+
+.quantity{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.quantity input{
+    width: 50px;
+    text-align: center;
+}
+
+@media screen and (max-width:1300px){
+    .card{
+        display:flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    img{
+        width: 50%;
+        height: 50%;
+        margin: 20% 30%;
+    }
+    .imagedet{
+        width: 100%;
+    }
+    .details{
+        width:100%;
+        padding: 10% 15%;
+    }
+}

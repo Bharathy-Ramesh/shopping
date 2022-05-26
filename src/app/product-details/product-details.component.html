@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="imagedet">
+        <img [src]="productdet.image">
+    </div>
+    <div class="details">
+        <h4>{{productdet.title}}</h4>
+        <p>{{productdet.description}}</p>
+        <div *ngIf="!setval" class="quantity">
+                <button type="button" (click)="minus()"><i class="fa fa-minus"></i></button>
+                <input type="text" [value]="quantity">
+                <button type="button" (click)="plus()"><i class="fa fa-plus"></i></button>
+        </div>
+        <button class="btn btn-outline-secondary" (click)="addtocart()" [disabled]="setval">Add to Cart</button> 
+    </div>
+</div>

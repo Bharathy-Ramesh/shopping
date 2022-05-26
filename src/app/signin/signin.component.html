@@ -1,0 +1,32 @@
+<div class="center-align" *ngIf="existuser; else updateuser">
+    <div class="card">
+        <form [formGroup]="log" (ngSubmit)="login()">
+            <div class="form-group">
+                <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="username" [ngClass]="{ 'is-invalid': logged && f['username'].errors }">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" formControlName="password" [ngClass]="{ 'is-invalid': logged && f['password'].errors }">
+              </div>
+              <button type="submit" class="btn btn-outline-secondary">Login</button>
+              <a class="forgetpwd" (click)="changeuser()">Forget Password</a>
+        </form>
+    </div>
+</div>
+<ng-template #updateuser>
+  <div class="center-align">
+    <div class="card">
+        <form [formGroup]="updatelog" (ngSubmit)="update()">
+            <div class="form-group">
+                <input type="email" class="form-control" id="user" placeholder="Enter email" formControlName="username" [ngClass]="{ 'is-invalid': logged && l['username'].errors }">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="l_pwd" placeholder="Create new password" formControlName="password" [ngClass]="{ 'is-invalid': logged && l['password'].errors }">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="c_pwd" placeholder="Confirm new password" formControlName="c_password" [ngClass]="{ 'is-invalid': (logged && l['c_password'].errors) || confirmvalidator() }">
+              </div>
+              <button type="submit" class="btn btn-outline-secondary">Submit</button>
+        </form>
+    </div>
+  </div>
+</ng-template>

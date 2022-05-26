@@ -1,0 +1,28 @@
+<div class="views">
+    <div class="card" *ngFor="let product of products; let i = index">
+        <div class="imgsrc">
+            <img [src]="product.image" class="card-img-top">
+        </div>
+        <div class="p_detail">
+            <p>{{product.title}}</p>
+            <p>INR {{product.price}}</p>
+            <!-- <div class="quantity">
+                <button type="button" (click)="minus()"><i class="fa fa-minus"></i></button>
+                <input type="text" name="a{{i}}" #quantity="ngModel" ngModel>
+                <button type="button" (click)="plus()"><i class="fa fa-plus"></i></button>
+            </div> -->
+            <button class="btn btn-outline-secondary" [routerLink] = "['/home/detail', product._id]">View Details</button> 
+            <p style="color: green;" *ngIf="product.count > 0">In Stock {{product.count}}</p>
+            <p style="color: red;" *ngIf="product.count <= 0">No Stock</p>  
+        </div>
+    </div>
+</div>
+
+<div>
+    <router-outlet></router-outlet>
+</div>
+<!-- name="{{i}}" #name="ngModel" ngModel -->
+
+<!-- (click)="detailpage(product)"  -->
+
+

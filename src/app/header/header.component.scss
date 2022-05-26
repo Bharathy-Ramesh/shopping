@@ -1,0 +1,28 @@
+.logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid rgb(216, 207, 207);
+    padding: 5px;
+    color:aliceblue;
+    background-color: #002e25;
+}
+.bts button{
+    margin:10px;
+    color: aliceblue;
+}
+h5{
+    margin: 10px;
+}
+.pro{
+    border: 2px solid rgb(121, 117, 117);
+    border-radius: 5px;
+}
+.pro p{
+    margin:10px;
+}
+.pro select{
+    border: none;
+    background-color: #002e25;
+    color: aliceblue;
+}

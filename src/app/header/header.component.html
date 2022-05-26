@@ -1,0 +1,15 @@
+<div class="logo">
+    <div><img src="/assets/shoppy.jpeg" style="max-width:75px"></div>
+    <div class="bts" *ngIf="!userActive">
+      <button class="btn btn-outline-secondary" [routerLink]="['/login']">Signin</button>
+      <button class="btn btn-outline-secondary" [routerLink]="['/signup']">Signup</button>
+    </div>
+    <div class="pro" *ngIf="userActive">
+      <p>
+      <select (change)="logout($event)">
+        <option>{{username}}</option>
+        <option>Logout</option>
+      </select>
+    </p> 
+    </div>
+  </div>
