@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserdetailService } from '../service/userdetail.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-signin',
@@ -33,15 +35,23 @@ export class SigninComponent implements OnInit {
     this.logged = true;
     if(this.log.status == 'VALID'){
       this.userservice.getuser(this.log.value).subscribe((res) => {
-        debugger;
-        if(res.body && res.body.length > 0){
-          this.userservice.profiledetail(res.body);
+        if(res.body && res.body.detail){
+          let response = [];
+          response.push(res.body.detail);
+          localStorage.setItem('token',`Bearer ${res.body.token}`);
+          this.userservice.profiledetail(res.body.detail);
           localStorage.setItem('status','Active');
-          localStorage.setItem('username',res.body[0].name);
+          localStorage.setItem('username',res.body.detail.name);
+          localStorage.setItem('id',res.body.detail._id);
+          this.userservice.getorder(res.body.detail._id).subscribe((response) => {
+            if(response && response.body.length > 0){
+              this.userservice.passorders(response.body);
+            }
+          });
           this.route.navigate(['/home']);
           this.log.reset();
           this.logged = false;
-          this.userservice.passValue(res.body[0].name);
+          this.userservice.passValue(res.body.detail.name);
         }
       })
     } 

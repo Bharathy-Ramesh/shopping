@@ -9,7 +9,11 @@ import { SignupComponent } from './signup/signup.component';
 import { HttpClientModule} from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component'; 
-import { ProductDetailsComponent } from './product-details/product-details.component'
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { DialogComponent } from './dialog/dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -19,14 +23,17 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     SignupComponent,
     HomeComponent,
     HeaderComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

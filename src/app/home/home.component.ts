@@ -26,17 +26,16 @@ export class HomeComponent implements OnInit {
     this.userdetail.getProducts().subscribe( (res)=> {
       if(res && res.length > 0){
         this.products = res;
+        this.userdetail.item(res);
       }
     })
   }
 
   plus(){
-    debugger;
     this.quantity++;
   }
 
   minus(){
-    debugger;
     this.quantity--;
   }
 

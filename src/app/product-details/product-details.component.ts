@@ -12,6 +12,8 @@ export class ProductDetailsComponent implements OnInit {
   quantity:any = 0;
   profiledata:any;
   setval:Boolean = false;
+  cartitems:any;
+
   constructor(public router : Router, public route : ActivatedRoute, public productdetail : UserdetailService) { }
 
   ngOnInit(): void {
@@ -24,19 +26,25 @@ export class ProductDetailsComponent implements OnInit {
       }
     })
     this.productdetail.profileData.subscribe((res) => {
-      if(res && res.length > 0){
-        this.profiledata = res[0];
+      if(res){
+        this.profiledata = res;
         console.log("logged", res);
       }        
     })
   }
-
+  
   addtocart(){
     debugger;
+    this.productdetail.cartdata.subscribe((res) => {
+      this.cartitems = res.find((data:any) => {
+        return this.productdet._id == data.productId;
+        // this.cartitems = res.length;
+      })
+    })
     let pro = {
       custId:this.profiledata._id,
       productId:this.productdet._id,
-      quantity:this.quantity
+      quantity:(this.cartitems) ? (parseInt(this.quantity) + parseInt(this.cartitems.quantity)) : parseInt(this.quantity)
     }
     this.productdetail.createorder(pro);
     this.updateproducts();
@@ -51,9 +59,11 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   updateproducts(){
-    debugger;
       this.productdet.count = this.productdet.count - this.quantity;
       this.productdetail.updateproduct(this.productdet);
+      this.productdetail.getorder(this.profiledata._id).subscribe( (res) => {
+         this.productdetail.passorders(res.body);
+      })
   }
 
 }

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { UserdetailService } from '../service/userdetail.service';
 import { Router } from '@angular/router';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-header',
@@ -8,24 +11,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  //id:any; 
   userActive:boolean = false;
   alpha:any;
   username:any;
-  constructor(public userdetail :UserdetailService, public route : Router){
+  cartitems:any; 
+  bool:any = false;
+
+  constructor(public userdetail :UserdetailService, public route : Router, public dialog : MatDialog){
     this.userdetail.userlogo.subscribe((res) =>{
       this.alpha = res;
     })
   }
   
   ngOnInit(): void {
+      let custid = localStorage.getItem('id');
+      this.userdetail.getorder(custid).subscribe((response) => {
+        if(response && response.body.length > 0 && custid){
+          this.cartitems = response.body.length;
+          this.bool = true;
+        }
+      });   
   }
 
-  ngDoCheck(): void {
+  ngDoCheck(): void{
       this.userdetail.profileData.subscribe((res) => {
         if(res && res.length > 0){
           this.userActive = true;
           this.username = res[0].name;
+          //this.id = res[0]._id;
           console.log("logged", res);
         }        
       })
@@ -34,9 +48,15 @@ export class HeaderComponent implements OnInit {
         this.userActive = true;
         this.username = localStorage.getItem('username');
       }
+      if(!this.bool){
+        this.userdetail.cartdata.subscribe((res) => {
+          console.log('$$',res)
+            this.cartitems = res.length;
+        })
+      }
+      
   }
   logout(event:any){
-    debugger;
     const value = event.target.value;
     if(value == "Logout")
     {
@@ -49,4 +69,14 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  opencart(){
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {id: localStorage.getItem('id')},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
+  }
 }

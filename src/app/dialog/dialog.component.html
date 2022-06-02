@@ -1,0 +1,23 @@
+<div>
+  <div (click)="onNoClick()"><i class="fa fa-window-close" aria-hidden="true"></i></div>
+  <div class="card">
+    <table class="table table-success table-striped">
+      <tr>
+        <th>S.no</th>
+        <th>Product</th>
+        <th>Name</th>
+        <th>quantity</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let product of productData; let i=index">
+        <td>{{i + 1}}</td>
+        <td><img [src]="product.image" style="width:100px; height:100px"></td>
+        <td>{{product.title}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.price}}</td>
+        <td><button class="btn btn-outline-secondary" (click)="onNoClick()" [routerLink] = "['/home/detail', product._id]">View</button></td>
+      </tr>
+    </table>
+  </div>
+</div>

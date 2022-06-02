@@ -1,20 +1,57 @@
 import { Injectable } from '@angular/core';
 import{ Observable, BehaviorSubject, of, Subject} from 'rxjs';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserdetailService {
   public userlogo = new Subject<String>();
   public userdetail : any = [];
   public urlpath = environment.host;
+  public token :any = {};
+  //public requestOptions:any;
+  public cartitem:any = [];
+  public product:any = [];
 
+  private headtoken = new BehaviorSubject(this.token);
   private profile = new BehaviorSubject(this.userdetail);
+  private cartItem = new BehaviorSubject(this.cartitem);
+  public productitem = new BehaviorSubject(this.product);
+
   profileData = this.profile.asObservable();
+  tokendata = this.headtoken.asObservable();
+  cartdata = this.cartItem.asObservable();
+  items = this.productitem.asObservable();
+
+
+  // tokendetail(data:any){
+  //   debugger
+  //   this.requestOptions = {                                                                                                                                                                                 
+  //     headers: new HttpHeaders()
+  //   };
+  //   this.headtoken.next(data);
+  // }
 
   constructor(public http : HttpClient) { }
+
+  profiledetail(data:any){
+    this.profile.next(data); 
+  }
+
+  item(data:any){
+    this.productitem.next(data);
+  }
+
+  passValue(data:any){
+    this.userlogo.next(data);
+  }
+
+  passorders(data:any){
+    this.cartItem.next(data);
+  }
 
   createuser(data:any){
     this.http.post(this.urlpath+'/customer', data)  
@@ -24,18 +61,26 @@ export class UserdetailService {
   }
 
   createorder(data:any){
-    this.http.post(this.urlpath+'/order', data)  
-              .subscribe((res) => {
-                console.log('Successfully created!', res)
-              })     
+    this.http.post(this.urlpath+'/order', data, {headers : new HttpHeaders({
+      Authorization : localStorage.getItem('token') || ''})}).subscribe((res) => {
+            console.log('Successfully created!', res)
+          });     
+  }
+
+  getorder(values:any):Observable<any>{
+    return this.http.get(this.urlpath+'/order',{
+      headers: new HttpHeaders({
+        Authorization : localStorage.getItem('token') || ''}),
+      params: {
+        custId: values,
+      },
+      observe: 'response',
+    });
   }
 
   getProducts():Observable<any>{
-    return this.http.get(this.urlpath+'/products');//('https://fakestoreapi.com/products')
-  }
-
-  profiledetail(data:any){
-    this.profile.next(data); 
+    return this.http.get(`${this.urlpath}/products`, {headers : new HttpHeaders({
+      Authorization : localStorage.getItem('token') || ''})});//('https://fakestoreapi.com/products')
   }
 
   getuser(values:any):Observable<any>{
@@ -50,26 +95,25 @@ export class UserdetailService {
 
   getproduct(values:any):Observable<any>{
     return this.http.get(this.urlpath+'/product',{
+      headers: new HttpHeaders({
+        Authorization : localStorage.getItem('token') || ''}),
       params: {
         id: values,
       },
-      observe: 'response'
+      observe: 'response',
     });
   }
  
- 
-  passValue(data:any){
-    this.userlogo.next(data);
-  }
-
   updateuser(data:any){
-    this.http.post(this.urlpath+'/customer/update',data).subscribe((res) => {
+    this.http.post(this.urlpath+'/customer/update',data, {headers : new HttpHeaders({
+      Authorization : localStorage.getItem('token') || ''})}).subscribe((res) => {
       console.log("Updated Successfully");
     })
   }
 
   updateproduct(data:any){
-    this.http.post(this.urlpath+'/product/update',data).subscribe((res) => {
+    this.http.post(this.urlpath+'/product/update',data, {headers : new HttpHeaders({
+      Authorization : localStorage.getItem('token') || ''})}).subscribe((res) => {
       console.log("Updated Successfully");
     })
   }

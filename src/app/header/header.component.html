@@ -4,12 +4,16 @@
       <button class="btn btn-outline-secondary" [routerLink]="['/login']">Signin</button>
       <button class="btn btn-outline-secondary" [routerLink]="['/signup']">Signup</button>
     </div>
-    <div class="pro" *ngIf="userActive">
-      <p>
+    <div class="promax" *ngIf="userActive">
+      <div (click)="opencart()"><i class="fa fa-shopping-cart carticon" aria-hidden="true" style="font-size:40px;"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="margin-left: -35px;">
+          {{cartitems}}
+        </span></div>
+      <div class="pro">
       <select (change)="logout($event)">
         <option>{{username}}</option>
         <option>Logout</option>
       </select>
-    </p> 
+    </div> 
     </div>
   </div>
