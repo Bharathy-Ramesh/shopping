@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
     this.userdetail.profileData.subscribe((res) => {
       if(res && res.length > 0){
         this.profiledata = res[0];
-        console.log("logged", res);
       }        
     })
   }

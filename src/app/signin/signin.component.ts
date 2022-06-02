@@ -59,7 +59,6 @@ export class SigninComponent implements OnInit {
   get f() { return this.log.controls; }
   get l() { return this.updatelog.controls; } 
   update(){
-    console.log(this.updatelog);
     this.logged = true;
     if(this.updatelog.status == 'VALID' && !this.confirmvalidator()){
       this.userservice.updateuser(this.updatelog.value);

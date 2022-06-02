@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit {
           this.userActive = true;
           this.username = res[0].name;
           //this.id = res[0]._id;
-          console.log("logged", res);
         }        
       })
       let status = localStorage.getItem('status');
@@ -50,7 +49,6 @@ export class HeaderComponent implements OnInit {
       }
       if(!this.bool){
         this.userdetail.cartdata.subscribe((res) => {
-          console.log('$$',res)
             this.cartitems = res.length;
         })
       }

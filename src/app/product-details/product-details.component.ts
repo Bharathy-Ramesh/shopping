@@ -20,7 +20,6 @@ export class ProductDetailsComponent implements OnInit {
     var ids = this.route.snapshot.paramMap.get('id');
     this.productdetail.getproduct(ids).subscribe((res) => {
       this.productdet = res.body[0];
-      console.log(this.productdet, res)
       if(this.productdet.count <= 0){
         this.setval = true;
       }
@@ -28,7 +27,6 @@ export class ProductDetailsComponent implements OnInit {
     this.productdetail.profileData.subscribe((res) => {
       if(res){
         this.profiledata = res;
-        console.log("logged", res);
       }        
     })
   }

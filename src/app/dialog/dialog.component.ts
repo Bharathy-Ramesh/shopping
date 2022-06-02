@@ -17,9 +17,9 @@ export class DialogComponent implements OnInit {
     this.userdetail.getorder(custid).subscribe( (res) => {
       if(res && res.body.length > 0){
       let data:any;
-      this.userdetail.items.subscribe( (resp) =>{
+      this.userdetail.getProducts().subscribe( (resp) =>{
+        console.log("888",resp);
         data = resp;
-      })
         res.body.forEach((element:any) => {
           let products = data.filter((ele:any) =>{
             return element.productId == ele._id;
@@ -32,6 +32,7 @@ export class DialogComponent implements OnInit {
             quantity:element.quantity
           })
         });
+      })
       }
     })
   }
