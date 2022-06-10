@@ -17,7 +17,8 @@
                 <input type="password" class="form-control" id="pswd" placeholder="Enter password" formControlName="pswd" [ngClass]="{ 'is-invalid': submitted && f['pswd'].errors }">
               </div>
             <div class="form-group">
-                <input type="password" class="form-control" id="c_pswd" placeholder="Confirm password" formControlName="c_pswd" [ngClass]="{ 'is-invalid': submitted && f['c_pswd'].errors }">
+                <input type="password" class="form-control" (keyup)="pwdvalidate()" id="c_pswd" placeholder="Confirm password" formControlName="c_pswd" [ngClass]="{ 'is-invalid': submitted && f['c_pswd'].errors }">
+                <p style="margin-top: 3px; color:red;" *ngIf="validate">Password doesn't match</p>
               </div>
               <button type="submit" class="btn btn-outline-secondary">Sign Up</button>
         </form>

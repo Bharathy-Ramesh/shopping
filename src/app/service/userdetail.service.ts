@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import{ Observable, BehaviorSubject, of, Subject} from 'rxjs';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,7 @@ export class UserdetailService {
   //   this.headtoken.next(data);
   // }
 
-  constructor(public http : HttpClient) { }
+  constructor(public http : HttpClient, public loadspin : NgxSpinnerService) { }
 
   profiledetail(data:any){
     this.profile.next(data); 
@@ -79,6 +80,7 @@ export class UserdetailService {
   }
 
   getProducts():Observable<any>{
+    this.loadspin.show();
     return this.http.get(`${this.urlpath}/products`, {headers : new HttpHeaders({
       Authorization : localStorage.getItem('token') || ''})});//('https://fakestoreapi.com/products')
   }
@@ -117,4 +119,17 @@ export class UserdetailService {
       console.log("Updated Successfully");
     })
   }
+
+  deleteorder(data:any,custid:any){
+    this.http.delete(this.urlpath+'/order',  
+    {
+      params: {
+        prodId: data,
+        custId:custid
+      }
+    }).subscribe((res) => {
+      console.log("Deleted Successfully");
+    })
+  }
+
 }

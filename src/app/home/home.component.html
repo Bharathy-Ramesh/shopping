@@ -1,7 +1,7 @@
 <div class="views">
-    <div class="card" *ngFor="let product of products; let i = index">
+    <div class="card col-12 col-sm-6 col-md-3 mt-5 ng-star-inserted" *ngFor="let product of products; let i = index">
         <div class="imgsrc">
-            <img [src]="product.image" class="card-img-top">
+            <img [src]="product.image" class="card-img-top" style="width: 100px; height: 120px;">
         </div>
         <div class="p_detail">
             <p>{{product.title}}</p>

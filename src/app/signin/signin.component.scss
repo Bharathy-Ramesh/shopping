@@ -14,3 +14,9 @@
    cursor: pointer;
    text-decoration: underline;
 }
+
+@media screen and (max-width:1300px){
+    .card{
+        width: auto;
+    }
+}

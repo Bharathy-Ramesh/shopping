@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserdetailService } from '../service/userdetail.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ export class HomeComponent implements OnInit {
   products:any;
   quantity:any = 1;
   profiledata:any;
-  constructor(public userdetail : UserdetailService, public router : Router, private route: ActivatedRoute) { }
+  constructor(public userdetail : UserdetailService, public router : Router, private route: ActivatedRoute, public loadspin : NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getProductsDetail();
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
         this.products = res;
         this.userdetail.item(res);
       }
+      this.loadspin.hide();
     })
   }
 

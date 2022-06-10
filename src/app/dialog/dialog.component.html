@@ -1,5 +1,5 @@
 <div>
-  <div (click)="onNoClick()"><i class="fa fa-window-close" aria-hidden="true"></i></div>
+  <div (click)="close()"><i class="fa fa-window-close" aria-hidden="true"></i></div>
   <div class="card">
     <table class="table table-success table-striped">
       <tr>
@@ -16,8 +16,12 @@
         <td>{{product.title}}</td>
         <td>{{product.quantity}}</td>
         <td>{{product.price}}</td>
-        <td><button class="btn btn-outline-secondary" (click)="onNoClick()" [routerLink] = "['/home/detail', product._id]">View</button></td>
+        <td><i (click)="onNoClick(product._id)" class="fa fa-eye"></i>
+          <i (click)="deleteproduct(product)" class="fa fa-trash"></i>
+        </td>
       </tr>
+      <!-- [routerLink] = "['/home/detail', product._id] -->
+      <!-- <button class="btn btn-outline-secondary" "></button> -->
     </table>
   </div>
 </div>

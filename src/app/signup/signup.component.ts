@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
   formsubmit:FormGroup;
   submitted:any = false;
+  validate:any=false;
   constructor( public form : FormBuilder, public userdetail : UserdetailService, public route : Router) {
     this.formsubmit = this.form.group({
       "fullname":new FormControl('',Validators.required),
@@ -26,7 +27,7 @@ export class SignupComponent implements OnInit {
   }
   signup(){
     this.submitted = true;
-    if(this.formsubmit.status == 'VALID'){
+    if(this.formsubmit.status == 'VALID' && !this.validate){
       this.userdetail.createuser(this.formsubmit.value);
       this.formsubmit.reset();
       this.submitted = false;
@@ -34,5 +35,13 @@ export class SignupComponent implements OnInit {
     }       
   }
   get f() { return this.formsubmit.controls; }
+
+  pwdvalidate(){
+    if(this.formsubmit.value.c_pswd == this.formsubmit.value.pswd){
+      this.validate = false;
+    }else{
+      this.validate = true;
+    }
+  }
 
 }
