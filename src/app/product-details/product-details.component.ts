@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserdetailService } from '../service/userdetail.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-product-details',
@@ -14,9 +15,10 @@ export class ProductDetailsComponent implements OnInit {
   setval:Boolean = false;
   cartitems:any;
 
-  constructor(public router : Router, public route : ActivatedRoute, public productdetail : UserdetailService) { }
+  constructor(public router : Router, public loadspin: NgxSpinnerService, public route : ActivatedRoute, public productdetail : UserdetailService) { }
 
   ngOnInit(): void {
+    this.loadspin.show();
     var ids = this.route.snapshot.paramMap.get('id');
     this.productdetail.getproduct(ids).subscribe((res) => {
       this.productdet = res.body[0];
@@ -29,10 +31,12 @@ export class ProductDetailsComponent implements OnInit {
         this.profiledata = res;
       }        
     })
+    setTimeout( ()=>{
+      this.loadspin.hide();
+    }, 1000)
   }
   
   addtocart(){
-    debugger;
     this.productdetail.cartdata.subscribe((res) => {
       this.cartitems = res.find((data:any) => {
         return this.productdet._id == data.productId;

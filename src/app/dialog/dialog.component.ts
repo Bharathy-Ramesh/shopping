@@ -20,12 +20,13 @@ export class DialogComponent implements OnInit {
   }
 
   loadpage(){
+    debugger;
+    this.loadspin.show();
     this.custid = localStorage.getItem('id');
     this.userdetail.getorder(this.custid).subscribe( (res) => {
       if(res && res.body.length > 0){
       let data:any;
       this.userdetail.getProducts().subscribe( (resp) =>{
-        this.loadspin.hide();
         data = resp;
         res.body.forEach((element:any) => {
           let products = data.filter((ele:any) =>{
@@ -43,6 +44,11 @@ export class DialogComponent implements OnInit {
       })
       }
     })
+    
+
+    setTimeout( ()=>{
+      this.loadspin.hide();
+    }, 1000)
   }
 
   onNoClick(prodId:any): void {

@@ -57,14 +57,12 @@ export class UserdetailService {
   createuser(data:any){
     this.http.post(this.urlpath+'/customer', data)  
               .subscribe((res) => {
-                console.log('Successfully created!', res)
               })    
   }
 
   createorder(data:any){
     this.http.post(this.urlpath+'/order', data, {headers : new HttpHeaders({
       Authorization : localStorage.getItem('token') || ''})}).subscribe((res) => {
-            console.log('Successfully created!', res)
           });     
   }
 
@@ -109,14 +107,14 @@ export class UserdetailService {
   updateuser(data:any){
     this.http.post(this.urlpath+'/customer/update',data, {headers : new HttpHeaders({
       Authorization : localStorage.getItem('token') || ''})}).subscribe((res) => {
-      console.log("Updated Successfully");
+
     })
   }
 
   updateproduct(data:any){
     this.http.post(this.urlpath+'/product/update',data, {headers : new HttpHeaders({
       Authorization : localStorage.getItem('token') || ''})}).subscribe((res) => {
-      console.log("Updated Successfully");
+  
     })
   }
 
@@ -128,7 +126,7 @@ export class UserdetailService {
         custId:custid
       }
     }).subscribe((res) => {
-      console.log("Deleted Successfully");
+
     })
   }
 

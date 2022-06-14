@@ -1,7 +1,7 @@
 <div>
   <div (click)="close()"><i class="fa fa-window-close" aria-hidden="true"></i></div>
   <div class="card">
-    <table class="table table-success table-striped">
+    <table *ngIf="productData.length > 0; else nocart" class="table table-success table-striped">
       <tr>
         <th>S.no</th>
         <th>Product</th>
@@ -23,5 +23,8 @@
       <!-- [routerLink] = "['/home/detail', product._id] -->
       <!-- <button class="btn btn-outline-secondary" "></button> -->
     </table>
+    <ng-template #nocart>
+      Cart is Empty
+    </ng-template>
   </div>
 </div>

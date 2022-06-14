@@ -23,12 +23,15 @@ export class HomeComponent implements OnInit {
     })
   }
   getProductsDetail(){
+    this.loadspin.show();
     this.userdetail.getProducts().subscribe( (res)=> {
       if(res && res.length > 0){
         this.products = res;
         this.userdetail.item(res);
       }
-      this.loadspin.hide();
+      setTimeout( ()=>{
+        this.loadspin.hide();
+      }, 1000)
     })
   }
 
